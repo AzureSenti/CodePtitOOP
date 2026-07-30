@@ -1,22 +1,43 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Scanner;
-import java.util.TreeMap;
+
+class KhachHang {
+    int t;
+    int d;
+
+    public KhachHang(int t, int d) {
+        this.t = t;
+        this.d = d;
+    }
+}
 
 public class J02009 {
-    static void main(String[] args) {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int testCase = sc.nextInt();
-        long end_time = 0;
-        TreeMap<Long, Long> hang_doi = new TreeMap<>();
-        while (testCase --> 0) {
-            long T = sc.nextLong();
-            long D = sc.nextLong();
-            hang_doi.put(T,D);
-        }
 
+        if (sc.hasNextInt()) {
+            int n = sc.nextInt();
+            List<KhachHang> ds = new ArrayList<>();
 
-        for (long khach: hang_doi.keySet()) {
-            end_time = Math.max(end_time, khach) + hang_doi.get(khach);
+            for (int i = 0; i < n; i++) {
+                int t = sc.nextInt();
+                int d = sc.nextInt();
+                ds.add(new KhachHang(t, d));
+            }
+
+            ds.sort((k1, k2) -> Integer.compare(k1.t, k2.t));
+
+            long endTime = 0;
+
+            for (KhachHang kh : ds) {
+                endTime = Math.max(endTime, kh.t) + kh.d;
+            }
+
+            System.out.println(endTime);
         }
-        System.out.println(end_time);
+        sc.close();
     }
 }
